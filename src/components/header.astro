@@ -1,0 +1,111 @@
+---
+
+---
+
+<div class="page-header">
+  <img src="/src/assets/logo.svg" alt="graphic" class="logo" />
+  <img
+    src="/src/assets/graphic1.svg"
+    alt="graphic"
+    class="header-img header-img-1"
+  />
+  <img
+    src="/src/assets/graphic2.svg"
+    alt="graphic"
+    class="header-img header-img-2"
+  />
+  <slot />
+</div>
+
+<style is:global>
+  .logo {
+    position: absolute;
+    top: 30px;
+    width: 150px;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  .page-header {
+    position: relative;
+    height: calc(100vh - 50px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    overflow: hidden;
+    padding: 0px 20px;
+  }
+  .page-header .header-img {
+    position: absolute;
+    max-width: 600px;
+    width: 40vw;
+  }
+  .page-header .header-img-1 {
+    left: -180px;
+    top: 0px;
+  }
+  .page-header .header-img-2 {
+    right: -180px;
+    top: 370px;
+  }
+  .page-header h1 {
+    font-size: 70px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 85px;
+  }
+  .page-header h4 {
+    font-size: 32px;
+    font-weight: 400;
+    line-height: 47px;
+    text-align: center;
+    background: linear-gradient(
+      243.25deg,
+      #00ffcf 5.15%,
+      #8b6ffc 30.18%,
+      #ff19ce 82.3%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-fill-color: transparent;
+    margin-top: 50px;
+  }
+
+  @media screen and (max-width: 1600px){
+    .page-header h1 {
+      font-size: 50px;
+      line-height: 60px;
+    }
+    .page-header h4 {
+      font-size: 24px;
+      line-height: 35px;
+    
+    }
+    .page-header .header-img-1 {
+      left: -11.3vw;
+      top: 0px;
+    }
+    .page-header .header-img-2 {
+      right: -11.3vw;
+      top: 23.5vw;
+    }
+  }
+  @media screen and (max-width: 800px){
+    .logo{
+        width: 100px;
+        top: 20px;
+    }
+    .page-header h1 {
+      font-size: 26px;
+      line-height: normal;
+    }
+    .page-header h4 {
+      font-size: 16px;
+      line-height: normal;
+      margin-top: 30px;
+    }
+  }
+</style>
+
+

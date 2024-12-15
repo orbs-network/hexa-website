@@ -1,0 +1,19 @@
+{
+  "name": "hexa",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^4.0.0",
+    "@emailjs/browser": "^4.4.1",
+    "astro": "^5.0.4",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "styled-components": "^6.1.13"
+  }
+}

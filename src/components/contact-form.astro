@@ -1,0 +1,235 @@
+---
+const { frontmatter } = Astro.props;
+---
+
+<div class="contact">
+  <div class="contact-flex">
+    <img src="/src/assets/graphic3.svg" alt="graphic" />
+    <div class="contact-form">
+      <h3>{frontmatter.title}</h3>
+      <div class="contact-form-fields">
+        <div class="contact-form-fields-top">
+          <div class="field gradient-border">
+            <input type="text" name="name" placeholder={frontmatter.name} />
+          </div>
+          <div class="field gradient-border">
+            <input type="text" name="email" placeholder={frontmatter.email} />
+          </div>
+        </div>
+        <div class="field gradient-border textarea">
+          <textarea placeholder={frontmatter.message}></textarea>
+        </div>
+        <div class="gradient-border submit-btn">
+          <button name="submit"><p>{frontmatter.button}</p></button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  import emailJs from "@emailjs/browser";
+  export const USER_POST_USER_ID = "user_koNkM5rLanEFftLBUpCe1";
+  export const USER_POST_SERVICE_ID = "service_38tdn3b";
+  export const USER_POST_CONTACT_TEMPLATE_ID = "template_fnk4k6f";
+  let sending = false;
+  document.addEventListener("DOMContentLoaded", () => {
+    emailJs.init(USER_POST_USER_ID);
+
+    const button = document.querySelector(".submit-btn button");
+    const btnText = button?.querySelector("p");
+
+    button?.addEventListener("click", async () => {
+      if (sending) return;
+      const name = document.querySelector("input[name=name]") as any;
+      const email = document.querySelector("input[name=email]") as any;
+      const message = document.querySelector("textarea") as any;
+
+      if (!name || !email || !message) {
+        alert("An error occurred. Please try again.");
+        return;
+      }
+
+      if (
+        name.value.trim() === "" ||
+        email.value.trim() === "" ||
+        message.value.trim() === ""
+      ) {
+        alert("Please fill in all fields");
+        return;
+      }
+
+      // Email validation using a regex
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email.value)) {
+        alert("Please enter a valid email address");
+        return;
+      }
+
+      try {
+        sending = true;
+        if(btnText) {
+            btnText.innerText = 'Sending...';
+        }
+        await emailJs.send(
+          USER_POST_SERVICE_ID,
+          USER_POST_CONTACT_TEMPLATE_ID,
+          {
+            first_name: name.value.split(" ")[0],
+            last_name: name.value.split(" ")[1] || "",
+            email: email.value,
+            message: message ? message.value : "",
+          }
+        );
+
+        alert("Message sent successfully!");
+        name.value = "";
+        email.value = "";
+        message.value = "";
+      } catch (error) {
+        console.error(error);
+        alert("An error occurred. Please try again.");
+      } finally {
+        sending = false;
+if (btnText) {
+    btnText.innerText = 'Get in touch';
+}
+      }
+    });
+  });
+</script>
+
+<style is:global>
+  .submit-btn {
+    width: fit-content;
+    margin-left: auto;
+  }
+  .submit-btn::after {
+    border-radius: 50px;
+  }
+  .submit-btn button {
+    height: 50px;
+    border-radius: 50px;
+    padding: 0px 30px;
+    background: black;
+    position: relative;
+    z-index: 1;
+    border: none;
+    color: white;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    cursor: pointer;
+  }
+  .gradient-border {
+    position: relative;
+    height: fit-content;
+  }
+  .gradient-border::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: calc(100% + 2px);
+    height: calc(100% + 2px);
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(
+      267.03deg,
+      #00f0ff 4.01%,
+      #5200ff 57.55%,
+      #ff2df7 114.97%
+    );
+  }
+  .contact {
+    border-radius: 20px;
+    margin-top: 200px;
+    background: linear-gradient(
+      244.79deg,
+      #00ffcf 23.07%,
+      #8b6ffc 56.07%,
+      #ff19ce 91.81%
+    );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 50px 50px;
+  }
+  .contact h3 {
+    font-size: 40px;
+    font-weight: 700;
+    color: black;
+  }
+  .contact-form {
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    flex: 1;
+    max-width: 500px;
+  }
+  .contact-form-fields {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .contact-form-fields button {
+  }
+  .contact-form-fields-top {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+  }
+  .field {
+    width: 100%;
+  }
+  .field input,
+  textarea {
+    border-radius: 20px;
+    font-size: 16px;
+    height: 50px;
+    text-indent: 10px;
+    width: 100%;
+    border: unset;
+    resize: none;
+    outline: none;
+    position: relative;
+    z-index: 1;
+    height: 100%;
+    min-height: 50px;
+    font-family: "Montserrat", sans-serif;
+  }
+  .textarea {
+    height: 100px;
+  }
+  .textarea textarea {
+    height: 100px;
+    padding-top: 10px;
+  }
+  .field::after {
+    border-radius: 20px;
+  }
+  .contact-flex {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 130px;
+  }
+  .contact-flex img {
+    width: 275px;
+  }
+
+  @media screen and (max-width: 900px) {
+    .contact {
+      padding: 20px;
+      margin-top: 80px;
+    }
+    .contact h3 {
+      font-size: 20px;
+    }
+    .contact-flex img {
+      display: none;
+    }
+    .contact-form-fields-top {
+      flex-direction: column;
+    }
+  }
+</style>
