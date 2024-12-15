@@ -1,16 +1,19 @@
 ---
+import { Image } from 'astro:assets';
+import Logo from '../assets/logo.svg';
+import Img1 from '../assets/graphic1.svg';
+import Img2 from '../assets/graphic2.svg';
 
 ---
-
 <div class="page-header">
-  <img src="/src/assets/logo.svg" alt="graphic" class="logo" />
-  <img
-    src="/src/assets/graphic1.svg"
+  <Image src={Logo} alt="graphic" class="logo" />
+  <Image
+    src={Img1}
     alt="graphic"
     class="header-img header-img-1"
   />
-  <img
-    src="/src/assets/graphic2.svg"
+  <Image
+    src={Img2}
     alt="graphic"
     class="header-img header-img-2"
   />
@@ -40,6 +43,7 @@
     position: absolute;
     max-width: 600px;
     width: 40vw;
+    height: auto;
   }
   .page-header .header-img-1 {
     left: -180px;
